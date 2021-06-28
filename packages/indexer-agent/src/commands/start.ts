@@ -39,7 +39,8 @@ export default {
   command: 'start',
   describe: 'Start the agent',
   builder: (yargs: Argv): Argv => {
-    return yargs
+
+      return yargs
       .option('ethereum', {
         description: 'Ethereum node or provider URL',
         type: 'string',
@@ -264,11 +265,11 @@ export default {
         type: 'string',
         array: true,
         default: [],
-        coerce: arg =>
+	coerce: arg =>
           arg.reduce(
             (acc: string[], value: string) => [...acc, ...value.split(',')],
             [],
-          ),
+          ).map((id: string) => id.trim()).filter((id: string) => id.length > 0),
       })
       .option('poi-disputable-epochs', {
         description:
